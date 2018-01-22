@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
         });
 
 
-        LineChart mLineChart = (LineChart) findViewById(R.id.lineChart);
+        LineChart mLineChart =  (LineChart) findViewById(R.id.lineChart);
         //显示边界
         mLineChart.setDrawBorders(true);
         //设置数据
