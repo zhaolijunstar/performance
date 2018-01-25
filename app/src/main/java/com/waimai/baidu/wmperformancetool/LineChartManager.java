@@ -1,5 +1,6 @@
 package com.waimai.baidu.wmperformancetool;
 
+import android.graphics.Color;
 import android.text.TextUtils;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -91,6 +92,7 @@ public class LineChartManager {
         lineDataSet.setFormSize(15.f);
         //线模式为圆滑曲线（默认折线）
         lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        lineDataSet.setHighLightColor(Color.BLACK);
     }
 
     /**

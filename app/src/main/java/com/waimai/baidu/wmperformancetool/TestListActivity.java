@@ -124,12 +124,18 @@ public class TestListActivity extends Activity {
 
 	}
 
-	public void toSelectCompareDataDialog(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        la.notifyDataSetChanged();
+    }
+
+    public void toSelectCompareDataDialog(){
 		View bottomView = View.inflate(this,R.layout.carids_dialog,null);//填充ListView布局
 		ListView lvCarIds = (ListView) bottomView.findViewById(R.id.lv_carids);//初始化ListView控件
 		lvCarIds.setAdapter(new LvCarIdsDailogAdapter(this));//ListView设置适配器
 
-		AlertDialog parkIdsdialog = new AlertDialog.Builder(this)
+		final AlertDialog parkIdsdialog = new AlertDialog.Builder(this)
 				.setTitle("选择对比参数").setView(bottomView)//在这里把写好的这个listview的布局加载dialog中
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
@@ -145,11 +151,13 @@ public class TestListActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
+                parkIdsdialog.dismiss();
                 SparseBooleanArray checkedArray = lstViReport.getCheckedItemPositions();
-				List<Integer> selectedData = new ArrayList<Integer>();
+                Log.i("dasfdfadfasd", "onItemClick: "+checkedArray.size());
+                List<Integer> selectedData = new ArrayList<Integer>();
 				for (int i = 0; i < checkedArray.size(); i++) {
-					if (checkedArray.valueAt(i)){
+                    Log.i("dasfdfadfasd", "onItemClick: "+checkedArray.get(i));
+                    if (checkedArray.valueAt(i)){
 						Log.i("dsafdsaf", "onClick: "+i);
 						selectedData.add(i);
 
@@ -158,8 +166,8 @@ public class TestListActivity extends Activity {
 				Intent intent = new Intent();
 				intent.setClass(TestListActivity.this, DataChartCompareActivity.class);
 				if (!selectedData.isEmpty()){
-					for (int i = 0; i < selectedData.size(); i++) {
-						intent.putExtra(CSV_PATH_KEY_N +i, la.getCSVPath(selectedData.get(i)));
+					for (int j = 0; j < selectedData.size(); j++) {
+						intent.putExtra(CSV_PATH_KEY_N +j, la.getCSVPath(selectedData.get(j)));
 					}
 				}
 				intent.putExtra(CSV_PATH_KEY_COUNT , selectedData.size());

@@ -35,22 +35,25 @@ public class DataChartCompareActivity extends Activity {
         List<List<Float>> yValues = getTestReportData(2);
         List<Float> maxDatas = new ArrayList<Float>();
         List<Float> minDatas = new ArrayList<Float>();
-//        float maxData = 0,minData = 0;
-//        for (List<Float> yValue:yValues) {
-//            maxData = yValue.get(0);
-//            minData = yValue.get(0);
-//            for (Float data:yValue) {
-//                Log.i("datadataadad", "onCreate: "+data+" ");
-//                if (data>maxData)
-//                maxData = data;
-//                if (data<minData)
-//                    minData = data;
-//            }
-//            maxDatas.add(maxData);
-//            minDatas.add(minData);
-//
-//            Log.i("datadataadad", "onCreate: "+"nnnnnnnnnnnnnnnnnnnnnnn");
-//        }
+        float maxData = 0,minData = 0;
+        for (List<Float> yValue:yValues) {
+            if (yValue!=null&&yValue.size()>0){
+                maxData = yValue.get(0);
+                minData = yValue.get(0);
+                for (Float data:yValue) {
+                    Log.i("datadataadad", "onCreate: "+data+" ");
+                    if (data>maxData)
+                        maxData = data;
+                    if (data<minData)
+                        minData = data;
+                }
+                maxDatas.add(maxData);
+                minDatas.add(minData);
+
+                Log.i("datadataadad", "onCreate: "+"nnnnnnnnnnnnnnnnnnnnnnn");
+            }
+
+        }
 
 
         //颜色集合
@@ -69,7 +72,9 @@ public class DataChartCompareActivity extends Activity {
 
         lineChartManager.showLineChart(xValues, yValues, names, colours);
 
-//        lineChartManager.setYAxis(Collections.max(maxDatas), Collections.min(minDatas), 11);
+        if (maxDatas!=null&&maxDatas.size()>0&&minDatas!=null&&minDatas.size()>0){
+            lineChartManager.setYAxis(Collections.max(maxDatas), Collections.min(minDatas), 11);
+        }
         lineChartManager.setDescription("内存");
 
 
