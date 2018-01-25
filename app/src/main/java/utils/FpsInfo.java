@@ -56,7 +56,7 @@ public class FpsInfo {
 				int end = str1.indexOf("  ");
 				if ((start != -1) & (end > start)) {
 					String str2 = str1.substring(start + 1, end);
-					return Integer.parseInt((String) str2, 16);
+					return Integer.parseInt(str2, 16);
 				}
 			}
 		} catch (IOException e) {

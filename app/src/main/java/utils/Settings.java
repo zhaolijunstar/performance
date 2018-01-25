@@ -2,7 +2,10 @@ package utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+
+import java.io.File;
 
 /**
  * Parameters in Setting Activity
@@ -34,5 +37,21 @@ public final class Settings {
 		}
 		return wakeLockHelper;
 	}
+
+	public static String getSDPath(){
+		File sdDir = null;
+		boolean sdCardExist = Environment.getExternalStorageState()
+				.equals(android.os.Environment.MEDIA_MOUNTED);//判断sd卡是否存在
+		if(sdCardExist)
+		{
+			sdDir = Environment.getExternalStorageDirectory();//获取跟目录
+		}
+		return sdDir.toString();
+	}
+
+	public static String getEMMAGEE_RESULT_DIR(){
+		return getSDPath() +"/" + "Emmagee"+"/";
+	}
+
 
 }

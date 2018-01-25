@@ -89,7 +89,7 @@ public class WMPerformaceTool {
     public void startWMPerformanceTool() {
         Log.i(LOG_TAG, "MainActivity::onCreate");
         processInfo = new ProcessInfo();
-        if (Build.VERSION.SDK_INT < 24) {
+//        if (Build.VERSION.SDK_INT < 24) {
             monitorService = new Intent();
             monitorService.setClass(mContext, EmmageeService.class);
             List<Programe> allProgrames = processInfo.getAllPackages(mContext);
@@ -125,8 +125,8 @@ public class WMPerformaceTool {
             monitorService.putExtra("startActivity", startActivity);
             mContext.startService(monitorService);
             isServiceStop = false;
-            btnTest.setText(mContext.getString(R.string.stop_test));
-        }
+//            btnTest.setText(mContext.getString(R.string.stop_test));
+//        }
 
     }
 

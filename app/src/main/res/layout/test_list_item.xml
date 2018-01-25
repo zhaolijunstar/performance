@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.waimai.baidu.wmperformancetool.CheckableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:button="@drawable/checkbox_selector"
+        android:clickable="false"
+        android:focusable="false" />
+
+    <TextView
+        android:id="@+id/package_name"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:ellipsize="end"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:layout_marginRight="20dp"
+        android:singleLine="true"
+        android:textColor="#5B5B5B"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+
+</com.waimai.baidu.wmperformancetool.CheckableFrameLayout>

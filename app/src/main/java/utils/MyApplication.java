@@ -42,7 +42,7 @@ public class MyApplication extends Application {
 	
 	private void initAppConfig() {
 		// create directory of emmagee
-		File dir = new File(Settings.EMMAGEE_RESULT_DIR);
+		File dir = new File(Settings.getEMMAGEE_RESULT_DIR());
 		if (!dir.exists()) {
 			dir.mkdirs();
 		}

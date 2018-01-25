@@ -173,12 +173,12 @@ public class MainPageActivity extends Activity {
 	}
 
 	private void initTitleLayout() {
-		ivGoBack = (ImageView) findViewById(R.id.go_back);
-		nbTitle = (TextView) findViewById(R.id.nb_title);
-		ivBtnSet = (ImageView) findViewById(R.id.btn_set);
-		lstViProgramme = (ListView) findViewById(R.id.processList);
-		btnTest = (Button) findViewById(R.id.test);
-		layBtnSet = (LinearLayout) findViewById(R.id.lay_btn_set);
+		ivGoBack = findViewById(R.id.go_back);
+		nbTitle = findViewById(R.id.nb_title);
+		ivBtnSet = findViewById(R.id.btn_set);
+		lstViProgramme = findViewById(R.id.processList);
+		btnTest = findViewById(R.id.test);
+		layBtnSet = findViewById(R.id.lay_btn_set);
 	}
 	
 //	private void loadSettings() {
@@ -319,16 +319,16 @@ public class MainPageActivity extends Activity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Programe pr = (Programe) programes.get(position);
+			Programe pr = programes.get(position);
 			if (convertView == null)
 				convertView = getLayoutInflater().inflate(R.layout.list_item, parent, false);
 			Viewholder holder = (Viewholder) convertView.getTag();
 			if (holder == null) {
 				holder = new Viewholder();
 				convertView.setTag(holder);
-				holder.imgViAppIcon = (ImageView) convertView.findViewById(R.id.image);
-				holder.txtAppName = (TextView) convertView.findViewById(R.id.text);
-				holder.rdoBtnApp = (RadioButton) convertView.findViewById(R.id.rb);
+				holder.imgViAppIcon = convertView.findViewById(R.id.image);
+				holder.txtAppName = convertView.findViewById(R.id.text);
+				holder.rdoBtnApp = convertView.findViewById(R.id.rb);
 				holder.rdoBtnApp.setFocusable(false);
 				holder.rdoBtnApp.setOnCheckedChangeListener(checkedChangeListener);
 			}
@@ -345,7 +345,7 @@ public class MainPageActivity extends Activity {
 				if (isChecked) {
 					final int checkedPosition = buttonView.getId();
 					if (lastCheckedPosition != -1) {
-						RadioButton tempButton = (RadioButton) findViewById(lastCheckedPosition);
+						RadioButton tempButton = findViewById(lastCheckedPosition);
 						if ((tempButton != null) && (lastCheckedPosition != checkedPosition)) {
 							tempButton.setChecked(false);
 						}

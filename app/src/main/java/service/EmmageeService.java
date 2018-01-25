@@ -215,12 +215,12 @@ public class EmmageeService extends Service {
 		if (isFloating) {
 			viFloatingWindow = LayoutInflater.from(this).inflate(
 					R.layout.floating, null);
-			txtUnusedMem = (TextView) viFloatingWindow
+			txtUnusedMem = viFloatingWindow
 					.findViewById(R.id.memunused);
-			txtTotalMem = (TextView) viFloatingWindow
+			txtTotalMem = viFloatingWindow
 					.findViewById(R.id.memtotal);
-			txtTraffic = (TextView) viFloatingWindow.findViewById(R.id.traffic);
-			btnWifi = (Button) viFloatingWindow.findViewById(R.id.wifi);
+			txtTraffic = viFloatingWindow.findViewById(R.id.traffic);
+			btnWifi = viFloatingWindow.findViewById(R.id.wifi);
 
 //			wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 //			if (wifiManager.isWifiEnabled()) {
@@ -232,7 +232,7 @@ public class EmmageeService extends Service {
 			txtUnusedMem.setTextColor(android.graphics.Color.RED);
 			txtTotalMem.setTextColor(android.graphics.Color.RED);
 			txtTraffic.setTextColor(android.graphics.Color.RED);
-			btnStop = (Button) viFloatingWindow.findViewById(R.id.stop);
+			btnStop = viFloatingWindow.findViewById(R.id.stop);
 			btnStop.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -279,7 +279,7 @@ public class EmmageeService extends Service {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 		String heapData = "";
 		String mDateTime = formatter.format(cal.getTime().getTime());
-		resultFilePath = Settings.EMMAGEE_RESULT_DIR + mDateTime + "_" + packageName
+		resultFilePath = Settings.getEMMAGEE_RESULT_DIR() + mDateTime + "_" + packageName
 				+ ".csv";
 		try {
 			File resultFile = new File(resultFilePath);
@@ -386,7 +386,7 @@ public class EmmageeService extends Service {
 			@Override
 			public void onClick(View v) {
 				try {
-					btnWifi = (Button) viFloatingWindow.findViewById(R.id.wifi);
+					btnWifi = viFloatingWindow.findViewById(R.id.wifi);
 					String buttonText = (String) btnWifi.getText();
 					String wifiText = getResources().getString(
 							R.string.open_wifi);
@@ -503,7 +503,7 @@ public class EmmageeService extends Service {
 		}
 		ArrayList<String> processInfo = cpuInfo.getCpuRatioInfo(totalBatt,
 				currentBatt, temperature, voltage,
-				String.valueOf(fpsInfo.fps()), isRoot);
+				String.valueOf(FpsInfo.fps()), isRoot);
 		if (isFloating) {
 			String processCpuRatio = "0.00";
 			String totalCpuRatio = "0.00";

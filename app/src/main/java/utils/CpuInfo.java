@@ -166,11 +166,8 @@ public class CpuInfo {
 		@Override
 		public boolean accept(File pathname) {
 			// Check if filename matchs "cpu[0-9]"
-			if (Pattern.matches("cpu[0-9]", pathname.getName())) {
-				return true;
-			}
-			return false;
-		}
+            return Pattern.matches("cpu[0-9]", pathname.getName());
+        }
 	}
 
 	/**
