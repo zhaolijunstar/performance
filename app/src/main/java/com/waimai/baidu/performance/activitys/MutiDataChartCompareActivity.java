@@ -25,12 +25,15 @@ import java.util.List;
 
 public class MutiDataChartCompareActivity extends Activity {
 
+    private LineChartManager lineChartManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_chat_compare);
         LineChart lineChart = findViewById(R.id.line_chart);
-        LineChartManager lineChartManager = new LineChartManager(lineChart);
+
+        lineChartManager = new LineChartManager(lineChart);
 
         //设置x轴的数据
         ArrayList<Float> xValues = new ArrayList<>();
@@ -81,7 +84,8 @@ public class MutiDataChartCompareActivity extends Activity {
 //        if (maxDatas != null && maxDatas.size() > 0 && minDatas != null && minDatas.size() > 0) {
 //            lineChartManager.setYAxis(Collections.max(maxDatas), Collections.min(minDatas), 11);
 //        }
-        lineChartManager.setDescription("内存");
+
+//        lineChartManager.("内存");
 
 
     }
@@ -91,9 +95,14 @@ public class MutiDataChartCompareActivity extends Activity {
      */
     private List<List<Float>> getTestReportData(int column) {
         Intent intent = getIntent();
+
+        String paramater = intent.getStringExtra(TestReportListActivity.PARAMATER);
+        lineChartManager.setDescription(paramater);
+
         //获得所有已选的文件路径
         String[] lines = null;
         List<List<Float>> compareData = new ArrayList<>();
+
 
         for (int i = 0; i < intent.getIntExtra(TestReportListActivity.CSV_PATH_KEY_COUNT, 0); i++) {
             String csvPath = intent.getStringExtra(TestReportListActivity.CSV_PATH_KEY_N + i);
@@ -101,7 +110,7 @@ public class MutiDataChartCompareActivity extends Activity {
                 String content = FileUtils.readFileToString(new File(csvPath), "gbk");
                 lines = content.split("\r\n");
                 List<Float> colunmNData = getColunmNData(lines, intent.getIntExtra(TestReportListActivity.PARAMATER_COLUMN, 2));
-                Log.i("dasfadsfa", "getTestReportData: "+colunmNData);
+                Log.i("dasfadsfa", "getTestReportData: " + colunmNData);
                 //存储所有已选文件的第n列数据
                 compareData.add(colunmNData);
             } catch (IOException e) {

@@ -39,7 +39,10 @@ public class TestReportListActivity extends Activity {
     //用于传递选中的行数
     static final String CSV_PATH_KEY_COUNT = "reportCount";
     //用于传递要对比的性能参数
-    static final String PARAMATER_COLUMN = "paramaterRow";
+    static final String PARAMATER_COLUMN = "paramaterColumn";
+    //对比的性能参数
+    static final String PARAMATER = "paramater";
+
     //测试报告list适配器
     private TestReportListAdapter testReportListAdapter;
     //测试数据报告列表
@@ -144,7 +147,8 @@ public class TestReportListActivity extends Activity {
     public void toSelectCompareParamaterDialog() {
         View paramaterDialog = View.inflate(this, R.layout.paramater_dialog, null);//填充ListView布局
         ListView paramaterDialogList = (ListView) paramaterDialog.findViewById(R.id.paramater_dialog_list);//初始化ListView控件
-        paramaterDialogList.setAdapter(new ParamaterDailogListAdapter(this));//ListView设置适配器
+        final ParamaterDailogListAdapter paramaterDailogListAdapter = new ParamaterDailogListAdapter(this);
+        paramaterDialogList.setAdapter(paramaterDailogListAdapter);//ListView设置适配器
 
         final AlertDialog parkIdsdialog = new AlertDialog.Builder(this)
                 .setTitle("选择对比参数").setView(paramaterDialog)//在这里把写好的这个listview的布局加载dialog中
@@ -162,6 +166,7 @@ public class TestReportListActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 parkIdsdialog.dismiss();
                 dataCompareIntent.putExtra(PARAMATER_COLUMN, positionToColumn.get(position));
+                dataCompareIntent.putExtra(PARAMATER,paramaterDailogListAdapter.getParamater(position));
                 startActivity(dataCompareIntent);
             }
         });
@@ -277,6 +282,10 @@ public class TestReportListActivity extends Activity {
             compareParamater.add("FPS");
 
 
+        }
+
+        public String getParamater(int position){
+            return compareParamater.get(position);
         }
 
         @Override
