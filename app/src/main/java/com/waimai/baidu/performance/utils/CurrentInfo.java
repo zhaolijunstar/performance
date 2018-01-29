@@ -10,12 +10,7 @@ import java.util.Locale;
 import android.os.Build;
 import android.util.Log;
 
-/**
- * Current info
- * 
- * @author andrewleo
- * 
- */
+
 public class CurrentInfo {
 	private static final String LOG_TAG = "Emmagee-CurrentInfo";
 	private static final String BUILD_MODEL = Build.MODEL.toLowerCase(Locale.ENGLISH);

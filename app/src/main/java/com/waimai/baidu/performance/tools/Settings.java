@@ -12,8 +12,6 @@ import java.io.File;
 /**
  * Parameters in Setting Activity
  * 
- * @author yrom
- * 
  */
 public final class Settings {
 
