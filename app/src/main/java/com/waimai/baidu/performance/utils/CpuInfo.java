@@ -212,13 +212,9 @@ public class CpuInfo {
     }
 
     /**
-     * reserve used ratio of process CPU and total CPU, meanwhile collect
-     * network traffic.
-     *
-     * @return network traffic ,used ratio of process CPU and total CPU in
-     * certain interval
+     * 写入数据，后期需重构
      */
-    public ArrayList<String> getCpuRatioInfo(String totalBatt, String currentBatt, String temperature, String voltage, String fps, boolean isRoot) {
+    public ArrayList<String> getCpuRatioInfo(String totalBatt, String currentBatt, String temperature, String voltage, String fps, boolean isRoot,boolean recodeDataSwitch) {
 
         String heapData = "";
         DecimalFormat fomart = new DecimalFormat();
@@ -305,20 +301,24 @@ public class CpuInfo {
                         String[][] heapArray = MemoryInfo.getHeapSize(pid, context);
                         heapData = heapArray[0][1] + "/" + heapArray[0][0] + Constants.COMMA + heapArray[1][1] + "/" + heapArray[1][0] + Constants.COMMA;
                     }
-                    WMPerformanceTestService.bw.write(
-                            mDateTime2 + Constants.COMMA //时间
-                                    + ProcessInfo.getTopActivity(context) + Constants.COMMA //栈顶Activity
-                                    + heapData + pMemory + Constants.COMMA //app占用内存
-                                    + percent + Constants.COMMA //app占用内存百分比
-                                    + fMemory + Constants.COMMA  //系统剩余内存
-                                    + processCpuRatio + Constants.COMMA //app使用cpu
+                    //点击浮窗的start，才开始记录数据
+                    if (recodeDataSwitch){
+                        WMPerformanceTestService.bw.write(
+                                mDateTime2 + Constants.COMMA //时间
+                                        + ProcessInfo.getTopActivity(context) + Constants.COMMA //栈顶Activity
+                                        + heapData + pMemory + Constants.COMMA //app占用内存
+                                        + percent + Constants.COMMA //app占用内存百分比
+                                        + fMemory + Constants.COMMA  //系统剩余内存
+                                        + processCpuRatio + Constants.COMMA //app使用cpu
 //                                    + totalCpuBuffer.toString()
-                                    + trafValue + Constants.COMMA //流量
-                                    + totalBatt + Constants.COMMA //电量
-                                    + currentBatt + Constants.COMMA //电流
-                                    + temperature + Constants.COMMA //温度
+                                        + trafValue + Constants.COMMA //流量
+                                        + totalBatt + Constants.COMMA //电量
+                                        + currentBatt + Constants.COMMA //电流
+                                        + temperature + Constants.COMMA //温度
 //                                    + voltage + Constants.COMMA
-                                    + fps + Constants.LINE_END); //fps
+                                        + fps + Constants.LINE_END); //fps
+                    }
+
                     totalCpu2 = (ArrayList<Long>) totalCpu.clone();
                     processCpu2 = processCpu;
                     idleCpu2 = (ArrayList<Long>) idleCpu.clone();

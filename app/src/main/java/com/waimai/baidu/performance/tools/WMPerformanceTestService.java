@@ -78,8 +78,9 @@ public class WMPerformanceTestService extends Service {
     private TextView txtTotalMem;
     private TextView txtUnusedMem;
     private TextView txtTraffic;
-    private Button btnStop;
-    private Button btnWifi;
+    private TextView btnStop;
+    private TextView btnStart;
+    private TextView recodeDataTip;
     private int delaytime;
     private DecimalFormat fomart;
     private MemoryInfo memoryInfo;
@@ -119,6 +120,8 @@ public class WMPerformanceTestService extends Service {
     private String startTime = "";
     public static final String SERVICE_ACTION = "com.netease.action.emmageeService";
     private static final String BATTERY_CHANGED = "android.intent.action.BATTERY_CHANGED";
+    //写入数据开关
+    private boolean recodeDataSwitch = false;
 
     @Override
     public void onCreate() {
@@ -200,15 +203,16 @@ public class WMPerformanceTestService extends Service {
             txtTotalMem = viFloatingWindow
                     .findViewById(R.id.memtotal);
             txtTraffic = viFloatingWindow.findViewById(R.id.traffic);
-            btnWifi = viFloatingWindow.findViewById(R.id.wifi);
+            btnStart = viFloatingWindow.findViewById(R.id.start);
+            recodeDataTip = viFloatingWindow.findViewById(R.id.tip);
 
 //			wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 //			if (wifiManager.isWifiEnabled()) {
-//				btnWifi.setText(R.string.close_wifi);
+//				btnStart.setText(R.string.close_wifi);
 //			} else {
-//				btnWifi.setText(R.string.open_wifi);
+//				btnStart.setText(R.string.open_wifi);
 //			}
-            txtUnusedMem.setText(getString(R.string.calculating));
+            txtUnusedMem.setText(getString(R.string.waiting));
             txtUnusedMem.setTextColor(android.graphics.Color.RED);
             txtTotalMem.setTextColor(android.graphics.Color.RED);
             txtTraffic.setTextColor(android.graphics.Color.RED);
@@ -226,7 +230,9 @@ public class WMPerformanceTestService extends Service {
             createFloatingWindow();
         }
         createResultCsv();
+
         handler.postDelayed(task, 1000);
+
         return START_NOT_STICKY;
     }
 
@@ -321,7 +327,7 @@ public class WMPerformanceTestService extends Service {
     }
 
     /**
-     * create a floating window to show real-time data.
+     * 创建一个小浮窗显示实时数据
      */
     private void createFloatingWindow() {
         SharedPreferences shared = getSharedPreferences("float_flag",
@@ -362,30 +368,40 @@ public class WMPerformanceTestService extends Service {
             }
         });
 
-        btnWifi.setOnClickListener(new OnClickListener() {
+        //开始记录数据
+        btnStart.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    btnWifi = viFloatingWindow.findViewById(R.id.wifi);
-                    String buttonText = (String) btnWifi.getText();
-                    String wifiText = getResources().getString(
-                            R.string.open_wifi);
-                    if (buttonText.equals(wifiText)) {
-                        wifiManager.setWifiEnabled(true);
-                        btnWifi.setText(R.string.close_wifi);
-                    } else {
-                        wifiManager.setWifiEnabled(false);
-                        btnWifi.setText(R.string.open_wifi);
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(viFloatingWindow.getContext(),
-                            getString(R.string.wifi_fail_toast),
-                            Toast.LENGTH_LONG).show();
-                    Log.e(LOG_TAG, e.toString());
-                }
+                recodeDataSwitch = true;
             }
         });
+
+//        btnStart.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    btnStart = viFloatingWindow.findViewById(R.id.start);
+//                    String buttonText = (String) btnStart.getText();
+//                    String wifiText = getResources().getString(
+//                            R.string.open_wifi);
+//                    if (buttonText.equals(wifiText)) {
+//                        wifiManager.setWifiEnabled(true);
+//                        btnStart.setText(R.string.close_wifi);
+//                    } else {
+//                        wifiManager.setWifiEnabled(false);
+//                        btnStart.setText(R.string.open_wifi);
+//                    }
+//                } catch (Exception e) {
+//                    Toast.makeText(viFloatingWindow.getContext(),
+//                            getString(R.string.wifi_fail_toast),
+//                            Toast.LENGTH_LONG).show();
+//                    Log.e(LOG_TAG, e.toString());
+//                }
+//            }
+//        });
     }
+
+
 
     private Runnable task = new Runnable() {
 
@@ -461,8 +477,7 @@ public class WMPerformanceTestService extends Service {
     }
 
     /**
-     * refresh the performance data showing in floating window.
-     *
+     *刷新小浮窗中的性能数据.
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -480,9 +495,12 @@ public class WMPerformanceTestService extends Service {
         } catch (Exception e) {
             currentBatt = Constants.NA;
         }
+
+        //写入数据，后期需重构
         ArrayList<String> processInfo = cpuInfo.getCpuRatioInfo(totalBatt,
                 currentBatt, temperature, voltage,
-                String.valueOf(FpsInfo.fps()), isRoot);
+                String.valueOf(FpsInfo.fps()), isRoot,recodeDataSwitch);
+
         if (isFloating) {
             String processCpuRatio = "0.00";
             String totalCpuRatio = "0.00";
@@ -520,6 +538,11 @@ public class WMPerformanceTestService extends Service {
                         txtTraffic.setText(batt + Constants.COMMA
                                 + getString(R.string.traffic) + trafficSize
                                 + "KB");
+                }
+                if (!recodeDataSwitch){
+                   recodeDataTip.setText("点击start开始记录数据");
+                }else{
+                    recodeDataTip.setText("正在记录数据...");
                 }
                 // 当内存为0切cpu使用率为0时则是被测应用退出
                 if ("0".equals(processMemory)) {

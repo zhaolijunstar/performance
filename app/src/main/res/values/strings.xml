@@ -15,7 +15,7 @@
     <string name="floating_window">Show Floating Window</string>
     <string name="save">Save</string>
 
-    <string name="calculating">Calculating...</string>
+    <string name="waiting">Calculating...</string>
     <string name="open_wifi">WIFI Off</string>
     <string name="close_wifi">WIFI On</string>
     <string name="process_free_mem">App/Available Memory:</string>
