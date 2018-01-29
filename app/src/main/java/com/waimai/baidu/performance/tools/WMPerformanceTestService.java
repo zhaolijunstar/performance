@@ -40,7 +40,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +55,6 @@ import com.waimai.baidu.performance.utils.MemoryInfo;
 import com.waimai.baidu.performance.utils.MyApplication;
 import com.waimai.baidu.performance.utils.ProcessInfo;
 import com.waimai.baidu.performance.utils.Programe;
-import com.waimai.baidu.performance.utils.Settings;
 
 /**
  * Service running in background
@@ -231,7 +229,8 @@ public class WMPerformanceTestService extends Service {
         }
         createResultCsv();
 
-        handler.postDelayed(task, 1000);
+        handler.postDelayed(task, 500);
+        dataRefresh();
 
         return START_NOT_STICKY;
     }
@@ -244,8 +243,8 @@ public class WMPerformanceTestService extends Service {
     private void readSettingInfo() {
         SharedPreferences preferences = Settings
                 .getDefaultSharedPreferences(getApplicationContext());
-        int interval = 1;
-        delaytime = interval * 500;
+        int interval = preferences.getInt(Settings.KEY_INTERVAL, 5);
+        delaytime = interval * 1000;
         isFloating = preferences.getBoolean(Settings.KEY_ISFLOAT, true);
         sender = preferences.getString(Settings.KEY_SENDER, BLANK_STRING);
         password = preferences.getString(Settings.KEY_PASSWORD, BLANK_STRING);
@@ -373,6 +372,11 @@ public class WMPerformanceTestService extends Service {
             @Override
             public void onClick(View v) {
                 recodeDataSwitch = true;
+                if (!recodeDataSwitch){
+                    recodeDataTip.setText("点击start开始记录数据");
+                }else{
+                    recodeDataTip.setText("正在记录数据...");
+                }
             }
         });
 
@@ -540,9 +544,7 @@ public class WMPerformanceTestService extends Service {
                                 + "KB");
                 }
                 if (!recodeDataSwitch){
-                   recodeDataTip.setText("点击start开始记录数据");
-                }else{
-                    recodeDataTip.setText("正在记录数据...");
+                    recodeDataTip.setText("点击start开始记录数据");
                 }
                 // 当内存为0切cpu使用率为0时则是被测应用退出
                 if ("0".equals(processMemory)) {

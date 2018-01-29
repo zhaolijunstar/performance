@@ -1,9 +1,11 @@
-package com.waimai.baidu.performance.utils;
+package com.waimai.baidu.performance.tools;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+
+import com.waimai.baidu.performance.utils.WakeLockHelper;
 
 import java.io.File;
 

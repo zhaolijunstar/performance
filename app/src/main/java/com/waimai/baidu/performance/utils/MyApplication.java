@@ -21,6 +21,8 @@ import java.io.File;
 import android.app.Application;
 import android.view.WindowManager;
 
+import com.waimai.baidu.performance.tools.Settings;
+
 /**
  * my application class
  * 

@@ -25,7 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.waimai.baidu.performance.utils.Settings;
+import com.waimai.baidu.performance.tools.Settings;
 import com.waimai.baidu.wmperformancetool.R;
 
 /**
@@ -39,7 +39,7 @@ public class TestReportListActivity extends Activity {
     //用于传递选中的行数
     static final String CSV_PATH_KEY_COUNT = "reportCount";
     //用于传递要对比的性能参数
-    static final String PARAMATER_ROW = "paramaterRow";
+    static final String PARAMATER_COLUMN = "paramaterRow";
     //测试报告list适配器
     private TestReportListAdapter testReportListAdapter;
     //测试数据报告列表
@@ -161,7 +161,7 @@ public class TestReportListActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 parkIdsdialog.dismiss();
-                dataCompareIntent.putExtra(PARAMATER_ROW, positionToColumn.get(position));
+                dataCompareIntent.putExtra(PARAMATER_COLUMN, positionToColumn.get(position));
                 startActivity(dataCompareIntent);
             }
         });
@@ -269,9 +269,10 @@ public class TestReportListActivity extends Activity {
             compareParamater.add("App Used Memory (%)");
             compareParamater.add("System Available Memory (MB)");
             compareParamater.add("App Used CPU (%)");
-            compareParamater.add("Total Used CPU (%)");
+//            compareParamater.add("Total Used CPU (%)");
             compareParamater.add("Net Traffic (KB)");
             compareParamater.add("Battery (%)");
+            compareParamater.add("Current (mA)");
             compareParamater.add("Temperature (C)");
             compareParamater.add("FPS");
 

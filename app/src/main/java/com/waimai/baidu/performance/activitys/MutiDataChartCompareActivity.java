@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+
 import com.github.mikephil.charting.charts.LineChart;
 import com.waimai.baidu.performance.tools.LineChartManager;
 import com.waimai.baidu.wmperformancetool.R;
 
 import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,22 +41,22 @@ public class MutiDataChartCompareActivity extends Activity {
         List<List<Float>> yValues = getTestReportData(2);
         List<Float> maxDatas = new ArrayList<Float>();
         List<Float> minDatas = new ArrayList<Float>();
-        float maxData = 0,minData = 0;
-        for (List<Float> yValue:yValues) {
-            if (yValue!=null&&yValue.size()>0){
+        float maxData = 0, minData = 0;
+        for (List<Float> yValue : yValues) {
+            if (yValue != null && yValue.size() > 0) {
                 maxData = yValue.get(0);
                 minData = yValue.get(0);
-                for (Float data:yValue) {
-                    Log.i("datadataadad", "onCreate: "+data+" ");
-                    if (data>maxData)
+                for (Float data : yValue) {
+                    Log.i("datadataadad", "onCreate: " + data + " ");
+                    if (data >= maxData)
                         maxData = data;
-                    if (data<minData)
+                    if (data <= minData)
                         minData = data;
                 }
                 maxDatas.add(maxData);
                 minDatas.add(minData);
 
-                Log.i("datadataadad", "onCreate: "+"nnnnnnnnnnnnnnnnnnnnnnn");
+                Log.i("datadataadad", "onCreate: " + "nnnnnnnnnnnnnnnnnnnnnnn");
             }
 
         }
@@ -76,11 +78,10 @@ public class MutiDataChartCompareActivity extends Activity {
 
         lineChartManager.showLineChart(xValues, yValues, names, colours);
 
-        if (maxDatas!=null&&maxDatas.size()>0&&minDatas!=null&&minDatas.size()>0){
-            lineChartManager.setYAxis(Collections.max(maxDatas), Collections.min(minDatas), 11);
-        }
+//        if (maxDatas != null && maxDatas.size() > 0 && minDatas != null && minDatas.size() > 0) {
+//            lineChartManager.setYAxis(Collections.max(maxDatas), Collections.min(minDatas), 11);
+//        }
         lineChartManager.setDescription("内存");
-
 
 
     }
@@ -94,12 +95,13 @@ public class MutiDataChartCompareActivity extends Activity {
         String[] lines = null;
         List<List<Float>> compareData = new ArrayList<>();
 
-        for (int i = 0; i <intent.getIntExtra(TestReportListActivity.CSV_PATH_KEY_COUNT,0); i++) {
-            String csvPath = intent.getStringExtra(TestReportListActivity.CSV_PATH_KEY_N+i);
+        for (int i = 0; i < intent.getIntExtra(TestReportListActivity.CSV_PATH_KEY_COUNT, 0); i++) {
+            String csvPath = intent.getStringExtra(TestReportListActivity.CSV_PATH_KEY_N + i);
             try {
                 String content = FileUtils.readFileToString(new File(csvPath), "gbk");
                 lines = content.split("\r\n");
-                List<Float> colunmNData = getColunmNData(lines,intent.getIntExtra(TestReportListActivity.PARAMATER_ROW, 2));
+                List<Float> colunmNData = getColunmNData(lines, intent.getIntExtra(TestReportListActivity.PARAMATER_COLUMN, 2));
+                Log.i("dasfadsfa", "getTestReportData: "+colunmNData);
                 //存储所有已选文件的第n列数据
                 compareData.add(colunmNData);
             } catch (IOException e) {
@@ -123,10 +125,10 @@ public class MutiDataChartCompareActivity extends Activity {
             //第9行才是要对比的数据
             if (i > 8) {
                 String[] items = lines[i].split(",");
-                for (String item:items){
-                    Log.i("getColunmNData", "getColunm: "+item);
+                for (String item : items) {
+                    Log.i("getColunmNData", "getColunm: " + item);
                 }
-                Log.i("getColunmNData", "getColunmNData: "+items.length);
+                Log.i("getColunmNData", "getColunmNData: " + items.length);
                 String data = items[column];
                 float dataF = Float.parseFloat(data);
                 columnData.add(dataF);
