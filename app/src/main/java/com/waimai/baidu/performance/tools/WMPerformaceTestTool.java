@@ -39,7 +39,7 @@ public class WMPerformaceTestTool {
         processInfo = new ProcessInfo();
 //        if (Build.VERSION.SDK_INT < 24) {
             monitorService = new Intent();
-            monitorService.setClass(mContext, EmmageeService.class);
+            monitorService.setClass(mContext, WMPerformanceTestService.class);
             List<Programe> allProgrames = processInfo.getAllPackages(mContext);
             String packageName = null;
             String processName = null;

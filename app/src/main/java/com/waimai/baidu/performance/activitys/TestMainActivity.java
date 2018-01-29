@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
-import com.waimai.baidu.performance.tools.EmmageeService;
+import com.waimai.baidu.performance.tools.WMPerformanceTestService;
 import com.waimai.baidu.performance.tools.WMPerformaceTestTool;
 import com.waimai.baidu.wmperformancetool.R;
 
@@ -61,7 +61,7 @@ public class TestMainActivity extends Activity {
 
         receiver = new UpdateReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction(EmmageeService.SERVICE_ACTION);
+        filter.addAction(WMPerformanceTestService.SERVICE_ACTION);
         registerReceiver(receiver, filter);
     }
 
@@ -73,7 +73,7 @@ public class TestMainActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             isServiceStop = intent.getExtras().getBoolean("isServiceStop");
             if (isServiceStop) {
-                btnTest.setText(getString(R.string.start_test));
+                btnTest.setText("开始测试");
             }
         }
     }
@@ -87,7 +87,7 @@ public class TestMainActivity extends Activity {
     public void onResume() {
         super.onResume();
         if (isServiceStop) {
-            btnTest.setText(getString(R.string.start_test));
+            btnTest.setText("开始测试");
         }
     }
 

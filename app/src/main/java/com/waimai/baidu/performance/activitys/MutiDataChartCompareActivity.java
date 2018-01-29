@@ -120,8 +120,8 @@ public class MutiDataChartCompareActivity extends Activity {
         List<Float> columnData = new ArrayList<>();
         //最后一行数据可能不完整，去掉
         for (int i = 0; i < lines.length - 1; i++) {
-            //第十行才是要对比的数据
-            if (i > 9) {
+            //第9行才是要对比的数据
+            if (i > 8) {
                 String[] items = lines[i].split(",");
                 for (String item:items){
                     Log.i("getColunmNData", "getColunm: "+item);

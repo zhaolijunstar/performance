@@ -3,10 +3,6 @@
     package="com.waimai.baidu.wmperformancetool">
 
     <uses-sdk android:minSdkVersion="8" />
-    android:versionCode="31"
-    android:versionName="2.4"
-    android:targetSdkVersion="22"
-    >
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -33,7 +29,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.waimai.baidu.performance.tools.EmmageeService" />
+        <service android:name="com.waimai.baidu.performance.tools.WMPerformanceTestService" />
 
         <activity android:name="com.waimai.baidu.performance.activitys.SingleDataDetailActivity" />
         <activity android:name="com.waimai.baidu.performance.activitys.TestReportListActivity" />

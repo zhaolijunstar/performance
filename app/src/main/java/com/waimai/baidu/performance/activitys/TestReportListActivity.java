@@ -48,7 +48,7 @@ public class TestReportListActivity extends Activity {
     private TextView dataCompareButton;
     //查看单条数据的按钮
     private TextView lookDataButton;
-    //位置对应列转换SparseIntArray，后期需要改进
+    //位置对应列转换SparseIntArray，
     SparseIntArray positionToColumn = new SparseIntArray();
     //开启MutiDataChartCompareActivity的intent
     Intent dataCompareIntent;
@@ -67,16 +67,9 @@ public class TestReportListActivity extends Activity {
         testReportListAdapter = new TestReportListAdapter(listReports());
         testReportList.setAdapter(testReportListAdapter);
 
-        //dialog位置对应列，后期需要改进
-        positionToColumn.append(0, 2);
-        positionToColumn.append(1, 3);
-        positionToColumn.append(2, 4);
-        positionToColumn.append(3, 5);
-        positionToColumn.append(4, 6);
-        positionToColumn.append(5, 11);
-        positionToColumn.append(6, 12);
-        positionToColumn.append(7, 14);
-        positionToColumn.append(8, 16);
+        for (int i = 0; i < 9; i++) {
+            positionToColumn.append(i, i + 2);
+        }
 
         //选择对比按钮后，弹需要对比的性能参数列表浮窗
         dataCompareButton.setOnClickListener(new OnClickListener() {
@@ -85,7 +78,7 @@ public class TestReportListActivity extends Activity {
 
                 List<Integer> selectedData = getSelectedTestData();
 
-                if (selectedData.size() <= 3) {
+                if (selectedData.size() <= 3 && selectedData.size() > 0) {
                     toSelectCompareParamaterDialog();
                     dataCompareIntent = new Intent();
                     dataCompareIntent.setClass(TestReportListActivity.this, MutiDataChartCompareActivity.class);
@@ -97,8 +90,10 @@ public class TestReportListActivity extends Activity {
                     }
                     dataCompareIntent.putExtra(CSV_PATH_KEY_COUNT, selectedData.size());
 
-                } else {
-                    Toast.makeText(TestReportListActivity.this, "最多只能对比三天测试报告", Toast.LENGTH_SHORT).show();
+                } else if (selectedData.size() > 3){
+                    Toast.makeText(TestReportListActivity.this, "最多只能对比三条测试报告", Toast.LENGTH_SHORT).show();
+                }else if (selectedData.size() <= 0){
+                    Toast.makeText(TestReportListActivity.this, "至少选择一条测试报告", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -111,8 +106,10 @@ public class TestReportListActivity extends Activity {
 
                 if (selectedData.size() == 1) {
                     SingleDataDetailActivity.toTestReportDataDetailActivity(TestReportListActivity.this, testReportListAdapter.getCSVPath(selectedData.get(0)));
-                } else {
+                } else if (selectedData.size() > 1){
                     Toast.makeText(TestReportListActivity.this, "只能查看一条测试报告", Toast.LENGTH_SHORT).show();
+                }else if(selectedData.size() < 1){
+                    Toast.makeText(TestReportListActivity.this, "至少选择一条测试报告", Toast.LENGTH_SHORT).show();
                 }
 
             }

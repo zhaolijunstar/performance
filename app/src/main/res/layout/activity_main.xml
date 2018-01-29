@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.waimai.baidu.wmperformancetool.com.waimai.baidu.performance.activity.WMPerformaceTestMainActivity"
     android:orientation="vertical"
     android:gravity="center">
 
@@ -31,7 +29,7 @@
         android:layout_marginRight="@dimen/layout_marginRight_test"
         android:layout_marginTop="@dimen/layout_marginTop_test"
         android:background="@drawable/test_button"
-        android:text="@string/start_test"
+        android:text="开始测试"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_test" />
 

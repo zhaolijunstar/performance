@@ -45,7 +45,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.waimai.baidu.performance.tools.EmmageeService;
+import com.waimai.baidu.performance.tools.WMPerformanceTestService;
 import com.waimai.baidu.performance.utils.ProcessInfo;
 import com.waimai.baidu.performance.utils.Programe;
 import com.waimai.baidu.wmperformancetool.R;
@@ -92,7 +92,7 @@ public class MainPageActivity extends Activity {
 			public void onClick(View v) {
 				if (Build.VERSION.SDK_INT < 24) {
 					monitorService = new Intent();
-					monitorService.setClass(MainPageActivity.this, EmmageeService.class);
+					monitorService.setClass(MainPageActivity.this, WMPerformanceTestService.class);
 					if (getString(R.string.start_test).equals(btnTest.getText().toString())) {
 						ListAdapter adapter = (ListAdapter) lstViProgramme.getAdapter();
 						if (adapter.checkedProg != null) {
@@ -128,7 +128,7 @@ public class MainPageActivity extends Activity {
 						}
 					} else {
 						btnTest.setText(getString(R.string.start_test));
-						Toast.makeText(MainPageActivity.this, getString(R.string.test_result_file_toast) + EmmageeService.resultFilePath,
+						Toast.makeText(MainPageActivity.this, getString(R.string.test_result_file_toast) + WMPerformanceTestService.resultFilePath,
 								Toast.LENGTH_LONG).show();
 						stopService(monitorService);
 					}
@@ -168,7 +168,7 @@ public class MainPageActivity extends Activity {
 		
 		receiver = new UpdateReceiver();
 		IntentFilter filter = new IntentFilter();
-		filter.addAction(EmmageeService.SERVICE_ACTION);
+		filter.addAction(WMPerformanceTestService.SERVICE_ACTION);
 		registerReceiver(receiver, filter);
 	}
 
