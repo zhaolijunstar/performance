@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.waimai.baidu.performance.utils.Settings;
 import com.waimai.baidu.wmperformancetool.R;
@@ -49,6 +50,8 @@ public class TestReportListActivity extends Activity {
     private TextView lookDataButton;
     //位置对应列转换SparseIntArray，后期需要改进
     SparseIntArray positionToColumn = new SparseIntArray();
+    //开启MutiDataChartCompareActivity的intent
+    Intent dataCompareIntent;
 
 
     @Override
@@ -79,22 +82,63 @@ public class TestReportListActivity extends Activity {
         dataCompareButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                toSelectCompareParamaterDialog();
+
+                List<Integer> selectedData = getSelectedTestData();
+
+                if (selectedData.size() <= 3) {
+                    toSelectCompareParamaterDialog();
+                    dataCompareIntent = new Intent();
+                    dataCompareIntent.setClass(TestReportListActivity.this, MutiDataChartCompareActivity.class);
+                    if (!selectedData.isEmpty()) {
+                        for (int j = 0; j < selectedData.size(); j++) {
+                            //选中的测试报告数据的对应路径传递过去
+                            dataCompareIntent.putExtra(CSV_PATH_KEY_N + j, testReportListAdapter.getCSVPath(selectedData.get(j)));
+                        }
+                    }
+                    dataCompareIntent.putExtra(CSV_PATH_KEY_COUNT, selectedData.size());
+
+                } else {
+                    Toast.makeText(TestReportListActivity.this, "最多只能对比三天测试报告", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
         lookDataButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                SingleDataDetailActivity.toTestReportDataDetailActivity(TestReportListActivity.this);
+
+                List<Integer> selectedData = getSelectedTestData();
+
+                if (selectedData.size() == 1) {
+                    SingleDataDetailActivity.toTestReportDataDetailActivity(TestReportListActivity.this, testReportListAdapter.getCSVPath(selectedData.get(0)));
+                } else {
+                    Toast.makeText(TestReportListActivity.this, "只能查看一条测试报告", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
     }
 
+    /**
+     * 获得已选的测试数据
+     *
+     * @return
+     */
+    private List<Integer> getSelectedTestData() {
+        SparseBooleanArray checkedArray = testReportList.getCheckedItemPositions();
+        List<Integer> selectedData = new ArrayList<>();
+        for (int i = 0; i < checkedArray.size(); i++) {
+            if (checkedArray.valueAt(i)) {
+                selectedData.add(checkedArray.keyAt(i));
+            }
+        }
+        return selectedData;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-//        testReportListAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -112,7 +156,6 @@ public class TestReportListActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-//                        parkIdsdialog.dismiss();
                     }
                 }).create();
         parkIdsdialog.show();
@@ -120,33 +163,9 @@ public class TestReportListActivity extends Activity {
         paramaterDialogList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 parkIdsdialog.dismiss();
-
-                //获得选中的测试报告数据
-                SparseBooleanArray checkedArray = testReportList.getCheckedItemPositions();
-
-                List<Integer> selectedData = new ArrayList<>();
-                //将选中的测试报告数据行号存起来
-                for (int i = 0; i < checkedArray.size(); i++) {
-                    if (checkedArray.valueAt(i)) {
-                        selectedData.add(checkedArray.keyAt(i));
-                    }
-                }
-
-                Intent intent = new Intent();
-                intent.setClass(TestReportListActivity.this, MutiDataChartCompareActivity.class);
-                if (!selectedData.isEmpty()) {
-                    for (int j = 0; j < selectedData.size(); j++) {
-                        //选中的测试报告数据的对应路径传递过去
-                        intent.putExtra(CSV_PATH_KEY_N + j, testReportListAdapter.getCSVPath(selectedData.get(j)));
-                    }
-                }
-                intent.putExtra(CSV_PATH_KEY_COUNT, selectedData.size());
-
-                intent.putExtra(PARAMATER_ROW, positionToColumn.get(position));
-
-                startActivity(intent);
+                dataCompareIntent.putExtra(PARAMATER_ROW, positionToColumn.get(position));
+                startActivity(dataCompareIntent);
             }
         });
 
@@ -224,6 +243,7 @@ public class TestReportListActivity extends Activity {
 
     /**
      * 是否是合法的路径
+     *
      * @param file
      * @return
      */

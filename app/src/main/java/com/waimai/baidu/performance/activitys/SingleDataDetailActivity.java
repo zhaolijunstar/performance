@@ -90,8 +90,9 @@ public class SingleDataDetailActivity extends Activity {
 		tl.addView(row, index);
 	}
 
-	public static void toTestReportDataDetailActivity(Context context){
+	public static void toTestReportDataDetailActivity(Context context,String path){
 		Intent intent = new Intent(context, SingleDataDetailActivity.class);
+		intent.putExtra(TestReportListActivity.CSV_PATH_KEY,path);
 		context.startActivity(intent);
 	}
 
