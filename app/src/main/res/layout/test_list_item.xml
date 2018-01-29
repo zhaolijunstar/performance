@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<com.waimai.baidu.wmperformancetool.CheckableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.waimai.baidu.performance.widgets.CheckableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
@@ -24,4 +24,4 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp" />
 
-</com.waimai.baidu.wmperformancetool.CheckableFrameLayout>
+</com.waimai.baidu.performance.widgets.CheckableFrameLayout>

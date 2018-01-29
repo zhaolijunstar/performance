@@ -1,4 +1,4 @@
-package utils;
+package com.waimai.baidu.performance.utils;
 
 /**
  * Constant Class

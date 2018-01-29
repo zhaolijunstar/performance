@@ -1,66 +1,21 @@
-package com.waimai.baidu.wmperformancetool;
+package com.waimai.baidu.performance.tools;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Build;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.util.List;
 
-import service.EmmageeService;
-import utils.ProcessInfo;
-import utils.Programe;
+import com.waimai.baidu.performance.activitys.MainPageActivity;
+import com.waimai.baidu.performance.utils.ProcessInfo;
+import com.waimai.baidu.performance.utils.Programe;
+import com.waimai.baidu.wmperformancetool.R;
 
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import service.EmmageeService;
-import utils.ProcessInfo;
-import utils.Programe;
-
-public class WMPerformaceTool {
+/**
+ * 性能检测工具
+ */
+public class WMPerformaceTestTool {
     private String FilterPKName = "com.baidu.lbs.waimai";
 
     private static final String LOG_TAG = "Emmagee-" + MainPageActivity.class.getSimpleName();
@@ -69,19 +24,12 @@ public class WMPerformaceTool {
 
     private ProcessInfo processInfo;
     private Intent monitorService;
-    private ListView lstViProgramme;
-    private Button btnTest;
     private int pid, uid;
     private boolean isServiceStop = false;
 
-    private TextView nbTitle;
-    private ImageView ivGoBack;
-    private ImageView ivBtnSet;
-    private LinearLayout layBtnSet;
-    private Long mExitTime = (long) 0;
     private Context mContext;
 
-    public WMPerformaceTool(Context context) {
+    public WMPerformaceTestTool(Context context) {
         mContext = context;
     }
 
@@ -125,7 +73,6 @@ public class WMPerformaceTool {
             monitorService.putExtra("startActivity", startActivity);
             mContext.startService(monitorService);
             isServiceStop = false;
-//            btnTest.setText(mContext.getString(R.string.stop_test));
 //        }
 
     }

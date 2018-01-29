@@ -1,7 +1,6 @@
-package com.waimai.baidu.wmperformancetool;
+package com.waimai.baidu.performance.tools;
 
 import android.graphics.Color;
-import android.text.TextUtils;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -14,7 +13,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

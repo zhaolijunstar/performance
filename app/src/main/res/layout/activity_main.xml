@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.waimai.baidu.wmperformancetool.MainActivity"
+    tools:context="com.waimai.baidu.wmperformancetool.com.waimai.baidu.performance.activity.WMPerformaceTestMainActivity"
     android:orientation="vertical"
     android:gravity="center">
 
@@ -36,7 +36,7 @@
         android:textSize="@dimen/text_size_test" />
 
     <Button
-        android:id="@+id/data_compare"
+        android:id="@+id/data_compare_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/layout_marginBottom_test"

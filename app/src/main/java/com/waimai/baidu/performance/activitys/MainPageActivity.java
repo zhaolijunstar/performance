@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package com.waimai.baidu.wmperformancetool;
+package com.waimai.baidu.performance.activitys;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +25,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,9 +45,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import service.EmmageeService;
-import utils.ProcessInfo;
-import utils.Programe;
+import com.waimai.baidu.performance.tools.EmmageeService;
+import com.waimai.baidu.performance.utils.ProcessInfo;
+import com.waimai.baidu.performance.utils.Programe;
+import com.waimai.baidu.wmperformancetool.R;
 
 /**
  * Main Page of Emmagee

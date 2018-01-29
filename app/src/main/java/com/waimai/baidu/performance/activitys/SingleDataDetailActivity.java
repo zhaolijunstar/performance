@@ -1,13 +1,13 @@
 
-package com.waimai.baidu.wmperformancetool;
+package com.waimai.baidu.performance.activitys;
 
 import java.io.File;
 import java.io.IOException;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,18 +17,21 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.waimai.baidu.wmperformancetool.R;
+
 import org.apache.commons.io.FileUtils;
 
+/**
+ * 单条测试数据详情页
+ */
 
+public class SingleDataDetailActivity extends Activity {
 
-public class TestReportActivity extends Activity {
-
-	private static final String LOG_TAG = "Emmagee-" + TestReportActivity.class.getSimpleName();
 	private TableLayout tl;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Log.i(LOG_TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.test_report);
@@ -45,12 +48,12 @@ public class TestReportActivity extends Activity {
 		layGoBack.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				TestReportActivity.this.finish();
+				SingleDataDetailActivity.this.finish();
 			}
 		});
 
 		Intent intent = getIntent();
-		String csvPath = intent.getStringExtra(TestListActivity.CSV_PATH_KEY);
+		String csvPath = intent.getStringExtra(TestReportListActivity.CSV_PATH_KEY);
 		
 		try {
 			String content = FileUtils.readFileToString(new File(csvPath), "gbk");
@@ -85,6 +88,11 @@ public class TestReportActivity extends Activity {
 			i++;
 		}
 		tl.addView(row, index);
+	}
+
+	public static void toTestReportDataDetailActivity(Context context){
+		Intent intent = new Intent(context, SingleDataDetailActivity.class);
+		context.startActivity(intent);
 	}
 
 }

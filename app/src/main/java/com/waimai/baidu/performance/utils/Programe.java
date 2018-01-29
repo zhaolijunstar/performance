@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package utils;
+package com.waimai.baidu.performance.utils;
 
 import android.graphics.drawable.Drawable;
 

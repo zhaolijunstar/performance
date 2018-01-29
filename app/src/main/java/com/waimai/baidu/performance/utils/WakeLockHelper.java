@@ -1,4 +1,4 @@
-package utils;
+package com.waimai.baidu.performance.utils;
 
 import android.content.Context;
 import android.os.PowerManager;

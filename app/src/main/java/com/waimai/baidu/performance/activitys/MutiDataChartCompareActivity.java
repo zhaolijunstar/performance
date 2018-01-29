@@ -1,23 +1,27 @@
-package com.waimai.baidu.wmperformancetool;
+package com.waimai.baidu.performance.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-
 import com.github.mikephil.charting.charts.LineChart;
+import com.waimai.baidu.performance.tools.LineChartManager;
+import com.waimai.baidu.wmperformancetool.R;
 
 import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class DataChartCompareActivity extends Activity {
+/**
+ * Created by iwm on 2018/1/24.
+ * 多条测试数据对比图
+ */
+
+public class MutiDataChartCompareActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,12 +94,12 @@ public class DataChartCompareActivity extends Activity {
         String[] lines = null;
         List<List<Float>> compareData = new ArrayList<>();
 
-        for (int i = 0; i <intent.getIntExtra(TestListActivity.CSV_PATH_KEY_COUNT,0); i++) {
-            String csvPath = intent.getStringExtra(TestListActivity.CSV_PATH_KEY_N+i);
+        for (int i = 0; i <intent.getIntExtra(TestReportListActivity.CSV_PATH_KEY_COUNT,0); i++) {
+            String csvPath = intent.getStringExtra(TestReportListActivity.CSV_PATH_KEY_N+i);
             try {
                 String content = FileUtils.readFileToString(new File(csvPath), "gbk");
                 lines = content.split("\r\n");
-                List<Float> colunmNData = getColunmNData(lines,intent.getIntExtra(TestListActivity.CSV_PATH_KEY_COLUMN, 2));
+                List<Float> colunmNData = getColunmNData(lines,intent.getIntExtra(TestReportListActivity.PARAMATER_ROW, 2));
                 //存储所有已选文件的第n列数据
                 compareData.add(colunmNData);
             } catch (IOException e) {

@@ -2,15 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/tv_carId"
+    <ListView
+        android:id="@+id/paramater_dialog_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="豫A88888"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        android:padding="10dp"
-        />
+        android:layout_height="match_parent">
+
+    </ListView>
 
 </LinearLayout>

@@ -1,14 +1,14 @@
-package com.waimai.baidu.wmperformancetool;
+package com.waimai.baidu.performance.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.Checkable;
 
 /**
  * Created by iwm on 2018/1/24.
+ * 可选择的list的item
  */
 
 public class CheckableFrameLayout extends FrameLayout implements Checkable {

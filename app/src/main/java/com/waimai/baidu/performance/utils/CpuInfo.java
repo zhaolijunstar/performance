@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  */
-package utils;
+package com.waimai.baidu.performance.utils;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -36,7 +36,7 @@ import android.util.Log;
 
 import com.waimai.baidu.wmperformancetool.R;
 
-import service.EmmageeService;
+import com.waimai.baidu.performance.tools.EmmageeService;
 
 /**
  * operate CPU information
