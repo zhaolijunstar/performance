@@ -146,8 +146,6 @@ public class WMPerformanceTestService extends Service {
 
     /**
      * 电池信息监控监听器
-     *
-     * @author andrewleo
      */
     public class BatteryInfoBroadcastReceiver extends BroadcastReceiver {
 
@@ -175,9 +173,9 @@ public class WMPerformanceTestService extends Service {
                 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 this);
-        builder.setContentIntent(contentIntent).setSmallIcon(R.drawable.icon)
+        builder.setContentIntent(contentIntent).setSmallIcon(R.drawable.waimai_logo)
                 .setWhen(System.currentTimeMillis()).setAutoCancel(true)
-                .setContentTitle("Emmagee");
+                .setContentTitle("wmpt");
         startForeground(startId, builder.build());
 
         pid = intent.getExtras().getInt("pid");
