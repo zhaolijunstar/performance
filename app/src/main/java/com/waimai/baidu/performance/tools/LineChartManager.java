@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,7 +43,6 @@ public class LineChartManager {
         lineChart.setDrawGridBackground(false);
         //显示边界
         lineChart.setDrawBorders(true);
-
 
         //设置动画效果
         lineChart.animateY(1000, Easing.EasingOption.Linear);
@@ -130,6 +130,14 @@ public class LineChartManager {
     public void showLineChart(List<Float> xAxisValues, List<List<Float>> yAxisValues, List<String> labels, List<Integer> colours) {
         if (xAxisValues!=null&&xAxisValues.size()>0&&yAxisValues!=null&&yAxisValues.size()>0){
             initLineChart();
+            int xAxisCount = yAxisValues.get(0).size();
+            //获取x轴的刻度总数
+            for (List<Float> yAxis:yAxisValues
+                 ) {
+                if (yAxis.size()>xAxisCount){
+                    xAxisCount = yAxis.size();
+                }
+            }
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
             for (int i = 0; i < yAxisValues.size(); i++) {
                 if (yAxisValues.get(i)!=null&&yAxisValues.get(i).size()>0){
@@ -148,10 +156,10 @@ public class LineChartManager {
                 }
             }
             LineData data = new LineData(dataSets);
-            xAxis.setLabelCount(xAxisValues.size(), true);
+            xAxis.setLabelCount(xAxisCount, true);
             lineChart.setData(data);
             lineChart.setVisibleXRangeMaximum(30);
-
+//            xAxis.setXOffset(1f);
         }
     }
 

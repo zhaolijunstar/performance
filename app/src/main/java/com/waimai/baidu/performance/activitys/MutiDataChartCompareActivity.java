@@ -84,6 +84,8 @@ public class MutiDataChartCompareActivity extends Activity {
 //        if (maxDatas != null && maxDatas.size() > 0 && minDatas != null && minDatas.size() > 0) {
 //            lineChartManager.setYAxis(Collections.max(maxDatas), Collections.min(minDatas), 11);
 //        }
+//        lineChartManager.setXAxis(1000, 0, 1000);
+
 
 //        lineChartManager.("内存");
 
