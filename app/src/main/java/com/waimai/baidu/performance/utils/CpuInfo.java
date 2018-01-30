@@ -144,8 +144,6 @@ public class CpuInfo {
 
     /**
      * display directories naming with "cpu*"
-     *
-     * @author andrewleo
      */
     class CpuFilter implements FileFilter {
         @Override

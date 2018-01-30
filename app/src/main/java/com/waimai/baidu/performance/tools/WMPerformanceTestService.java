@@ -583,7 +583,7 @@ public class WMPerformanceTestService extends Service {
         closeOpenedStream();
 
         //文件存储成功
-        if (resultFilePath != null) {
+        if (resultFilePath != null && recodeDataSwitch == true) {
 
             // replace the start time in file
             if (!BLANK_STRING.equals(startTime)) {
