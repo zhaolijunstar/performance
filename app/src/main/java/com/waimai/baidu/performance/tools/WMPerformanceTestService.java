@@ -175,7 +175,7 @@ public class WMPerformanceTestService extends Service {
                 this);
         builder.setContentIntent(contentIntent).setSmallIcon(R.drawable.waimai_logo)
                 .setWhen(System.currentTimeMillis()).setAutoCancel(true)
-                .setContentTitle("wmpt");
+                .setContentTitle("WMPerformace");
         startForeground(startId, builder.build());
 
         pid = intent.getExtras().getInt("pid");
@@ -204,12 +204,6 @@ public class WMPerformanceTestService extends Service {
             btnStart = viFloatingWindow.findViewById(R.id.start);
             recodeDataTip = viFloatingWindow.findViewById(R.id.tip);
 
-//			wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-//			if (wifiManager.isWifiEnabled()) {
-//				btnStart.setText(R.string.close_wifi);
-//			} else {
-//				btnStart.setText(R.string.open_wifi);
-//			}
             txtUnusedMem.setText(getString(R.string.waiting));
             txtUnusedMem.setTextColor(android.graphics.Color.RED);
             txtTotalMem.setTextColor(android.graphics.Color.RED);

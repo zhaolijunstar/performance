@@ -35,22 +35,8 @@ public class SingleDataDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.test_report);
-
-		TextView title = findViewById(R.id.nb_title);
-		ImageView btnSave = findViewById(R.id.btn_set);
+		
 		tl = findViewById(R.id.table_layout);
-
-		btnSave.setVisibility(ImageView.INVISIBLE);
-		title.setText(R.string.test_report);
-
-		LinearLayout layGoBack = findViewById(R.id.lay_go_back);
-
-		layGoBack.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				SingleDataDetailActivity.this.finish();
-			}
-		});
 
 		Intent intent = getIntent();
 		String csvPath = intent.getStringExtra(TestReportListActivity.CSV_PATH_KEY);
