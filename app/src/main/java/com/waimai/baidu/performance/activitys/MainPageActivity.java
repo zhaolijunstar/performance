@@ -56,6 +56,7 @@ import com.waimai.baidu.wmperformancetool.R;
  * @author andrewleo
  */
 public class MainPageActivity extends Activity {
+
 	private String FilterPKName="com.baidu.lbs.waimai";
 
 	private static final String LOG_TAG = "Emmagee-" + MainPageActivity.class.getSimpleName();
