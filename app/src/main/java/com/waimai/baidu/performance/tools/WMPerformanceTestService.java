@@ -116,7 +116,7 @@ public class WMPerformanceTestService extends Service {
     private int getStartTimeCount = 0;
     private boolean isGetStartTime = true;
     private String startTime = "";
-    public static final String SERVICE_ACTION = "com.netease.action.emmageeService";
+    public static final String SERVICE_ACTION = "com.waimai.action.performanceService";
     private static final String BATTERY_CHANGED = "android.intent.action.BATTERY_CHANGED";
     //写入数据开关
     private boolean recodeDataSwitch = false;
@@ -255,7 +255,7 @@ public class WMPerformanceTestService extends Service {
      */
     private void createResultCsv() {
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
         String heapData = "";
         String mDateTime = formatter.format(cal.getTime().getTime());
         resultFilePath = Settings.getEMMAGEE_RESULT_DIR() + mDateTime + "_" + packageName

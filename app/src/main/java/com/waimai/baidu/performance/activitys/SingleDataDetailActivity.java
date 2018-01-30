@@ -35,7 +35,7 @@ public class SingleDataDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.test_report);
-		
+
 		tl = findViewById(R.id.table_layout);
 
 		Intent intent = getIntent();
