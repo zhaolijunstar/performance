@@ -227,7 +227,7 @@ public class WMPerformanceTestService extends Service {
             });
             createFloatingWindow();
         }
-        createResultCsv();
+//        createResultCsv();
 
         handler.postDelayed(task, 500);
         dataRefresh();
@@ -372,9 +372,9 @@ public class WMPerformanceTestService extends Service {
             @Override
             public void onClick(View v) {
                 recodeDataSwitch = true;
-                if (!recodeDataSwitch){
+                if (!recodeDataSwitch) {
                     recodeDataTip.setText("点击start开始记录数据");
-                }else{
+                } else {
                     recodeDataTip.setText("正在记录数据...");
                 }
             }
@@ -404,7 +404,6 @@ public class WMPerformanceTestService extends Service {
 //            }
 //        });
     }
-
 
 
     private Runnable task = new Runnable() {
@@ -481,7 +480,8 @@ public class WMPerformanceTestService extends Service {
     }
 
     /**
-     *刷新小浮窗中的性能数据.
+     * 刷新小浮窗中的性能数据.
+     *
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -503,7 +503,7 @@ public class WMPerformanceTestService extends Service {
         //写入数据，后期需重构
         ArrayList<String> processInfo = cpuInfo.getCpuRatioInfo(totalBatt,
                 currentBatt, temperature, voltage,
-                String.valueOf(FpsInfo.fps()), isRoot,recodeDataSwitch);
+                String.valueOf(FpsInfo.fps()), isRoot, recodeDataSwitch);
 
         if (isFloating) {
             String processCpuRatio = "0.00";
@@ -543,7 +543,7 @@ public class WMPerformanceTestService extends Service {
                                 + getString(R.string.traffic) + trafficSize
                                 + "KB");
                 }
-                if (!recodeDataSwitch){
+                if (!recodeDataSwitch) {
                     recodeDataTip.setText("点击start开始记录数据");
                 }
                 // 当内存为0切cpu使用率为0时则是被测应用退出
