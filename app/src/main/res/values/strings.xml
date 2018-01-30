@@ -58,7 +58,8 @@
     <string name="info_incomplete_toast">Incomplete email settings</string>
     <string name="wifi_fail_toast">Failed to set WIFI</string>
     <string name="send_success_toast">Test result has been sent to:</string>
-    <string name="send_fail_toast">Test result failed to be sent to your mailbox, saved at:</string>
+    <string name="file_save_successful_toast">表格创建成功，路径为:</string>
+    <string name="file_save_fail_toast">未记录数据，表格创建失败.</string>
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>

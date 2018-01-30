@@ -120,6 +120,8 @@ public class WMPerformanceTestService extends Service {
     private static final String BATTERY_CHANGED = "android.intent.action.BATTERY_CHANGED";
     //写入数据开关
     private boolean recodeDataSwitch = false;
+    //是否已经创建表格头
+    private boolean isCreateResultCsv = false;
 
     @Override
     public void onCreate() {
@@ -376,33 +378,13 @@ public class WMPerformanceTestService extends Service {
                     recodeDataTip.setText("点击start开始记录数据");
                 } else {
                     recodeDataTip.setText("正在记录数据...");
+                    if (!isCreateResultCsv) {
+                        createResultCsv();
+                        isCreateResultCsv = true;
+                    }
                 }
             }
         });
-
-//        btnStart.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                try {
-//                    btnStart = viFloatingWindow.findViewById(R.id.start);
-//                    String buttonText = (String) btnStart.getText();
-//                    String wifiText = getResources().getString(
-//                            R.string.open_wifi);
-//                    if (buttonText.equals(wifiText)) {
-//                        wifiManager.setWifiEnabled(true);
-//                        btnStart.setText(R.string.close_wifi);
-//                    } else {
-//                        wifiManager.setWifiEnabled(false);
-//                        btnStart.setText(R.string.open_wifi);
-//                    }
-//                } catch (Exception e) {
-//                    Toast.makeText(viFloatingWindow.getContext(),
-//                            getString(R.string.wifi_fail_toast),
-//                            Toast.LENGTH_LONG).show();
-//                    Log.e(LOG_TAG, e.toString());
-//                }
-//            }
-//        });
     }
 
 
@@ -607,36 +589,34 @@ public class WMPerformanceTestService extends Service {
         }
         handler.removeCallbacks(task);
         closeOpenedStream();
-        // replace the start time in file
-        if (!BLANK_STRING.equals(startTime)) {
-            replaceFileString(resultFilePath, START_TIME,
-                    getString(R.string.start_time) + startTime
-                            + Constants.LINE_END);
-        } else {
-            replaceFileString(resultFilePath, START_TIME, BLANK_STRING);
-        }
-        isStop = true;
-        unregisterReceiver(batteryBroadcast);
-        boolean isSendSuccessfully = false;
-        try {
-//			isSendSuccessfully = MailSender.sendTextMail(sender,
-//					des.decrypt(password), smtp,
-//					"Emmagee Performance Test Report", "see attachment",
-//					resultFilePath, receivers);
-        } catch (Exception e) {
-            isSendSuccessfully = false;
-        }
-        if (isSendSuccessfully) {
-            Toast.makeText(this,
-                    getString(R.string.send_success_toast) + recipients,
-                    Toast.LENGTH_LONG).show();
-        } else {
+
+        //文件存储成功
+        if (resultFilePath != null) {
+
+            // replace the start time in file
+            if (!BLANK_STRING.equals(startTime)) {
+                replaceFileString(resultFilePath, START_TIME,
+                        getString(R.string.start_time) + startTime
+                                + Constants.LINE_END);
+            } else {
+                replaceFileString(resultFilePath, START_TIME, BLANK_STRING);
+            }
+
             Toast.makeText(
                     this,
-                    getString(R.string.send_fail_toast)
+                    getString(R.string.file_save_successful_toast)
                             + WMPerformanceTestService.resultFilePath, Toast.LENGTH_LONG)
                     .show();
+        } else {
+            Toast.makeText(
+                    this, getString(R.string.file_save_fail_toast)
+                    , Toast.LENGTH_LONG)
+                    .show();
         }
+
+        isStop = true;
+        unregisterReceiver(batteryBroadcast);
+
         super.onDestroy();
         stopForeground(true);
     }
