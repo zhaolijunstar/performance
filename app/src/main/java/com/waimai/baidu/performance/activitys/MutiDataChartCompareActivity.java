@@ -74,9 +74,9 @@ public class MutiDataChartCompareActivity extends Activity {
 
         //线的名字集合
         List<String> names = new ArrayList<>();
-        names.add("折线一");
-        names.add("折线二");
-        names.add("折线三");
+        names.add("报告一");
+        names.add("报告二");
+        names.add("报告三");
 //        names.add("折线四");
 
         lineChartManager.showLineChart(xValues, yValues, names, colours);
