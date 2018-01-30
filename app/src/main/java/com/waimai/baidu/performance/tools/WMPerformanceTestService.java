@@ -255,10 +255,10 @@ public class WMPerformanceTestService extends Service {
      */
     private void createResultCsv() {
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yy年MM月dd日 HH:mm:ss");
         String heapData = "";
         String mDateTime = formatter.format(cal.getTime().getTime());
-        resultFilePath = Settings.getEMMAGEE_RESULT_DIR() + mDateTime + "_" + packageName
+        resultFilePath = Settings.getEMMAGEE_RESULT_DIR() + mDateTime + " " + "的测试报告"
                 + ".csv";
         try {
             File resultFile = new File(resultFilePath);
