@@ -195,6 +195,8 @@ public class ProcessInfo {
 		ActivityManager manager = (ActivityManager) context
 				.getSystemService(Context.ACTIVITY_SERVICE);
 		// Note: getRunningTasks is deprecated in API 21(Official)
+		//getRunningTask方法在Android5.0以上已经被废弃，只会返回自己和系统的一些不敏感的task，不再返回其他应用的task，用此方法来判断自身App是否处于后台，仍然是有效的，但是无法判断其他应用是否位于前台
+		//因此集成之后，可以开放此方法
 		if (Build.VERSION.SDK_INT >= 21) {
 			return Constants.NA;
 		}
