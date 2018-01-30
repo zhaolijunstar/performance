@@ -43,7 +43,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.waimai.baidu.performance.activitys.MainPageActivity;
+import com.waimai.baidu.performance.activitys.TestMainActivity;
 import com.waimai.baidu.wmperformancetool.R;
 
 import com.waimai.baidu.performance.utils.Constants;
@@ -171,7 +171,7 @@ public class WMPerformanceTestService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         PendingIntent contentIntent = PendingIntent.getActivity(
-                getBaseContext(), 0, new Intent(this, MainPageActivity.class),
+                getBaseContext(), 0, new Intent(this, TestMainActivity.class),
                 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 this);

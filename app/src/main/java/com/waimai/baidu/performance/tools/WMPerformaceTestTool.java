@@ -7,7 +7,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 
-import com.waimai.baidu.performance.activitys.MainPageActivity;
+import com.waimai.baidu.performance.activitys.TestMainActivity;
 import com.waimai.baidu.performance.utils.ProcessInfo;
 import com.waimai.baidu.performance.utils.Programe;
 import com.waimai.baidu.wmperformancetool.R;
@@ -18,7 +18,7 @@ import com.waimai.baidu.wmperformancetool.R;
 public class WMPerformaceTestTool {
     private String FilterPKName = "com.baidu.lbs.waimai";
 
-    private static final String LOG_TAG = "Emmagee-" + MainPageActivity.class.getSimpleName();
+    private static final String LOG_TAG = "WM-" + TestMainActivity.class.getSimpleName();
 
     private static final int TIMEOUT = 20000;
 
