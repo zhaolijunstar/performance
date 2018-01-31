@@ -25,12 +25,10 @@ import com.waimai.baidu.performance.tools.WMPerformanceTestService;
 
 /**
  * operate CPU information
- *
- * @author andrewleo
  */
 public class CpuInfo {
 
-    private static final String LOG_TAG = "Emmagee-" + CpuInfo.class.getSimpleName();
+    private static final String LOG_TAG = "WMPerformance-" + CpuInfo.class.getSimpleName();
 
     private Context context;
     private long processCpu;
@@ -293,12 +291,12 @@ public class CpuInfo {
                                         + percent + Constants.COMMA //app占用内存百分比
                                         + fMemory + Constants.COMMA  //系统剩余内存
                                         + processCpuRatio + Constants.COMMA //app使用cpu
-//                                    + totalCpuBuffer.toString()
+//                                      + totalCpuBuffer.toString()
                                         + trafValue + Constants.COMMA //流量
                                         + totalBatt + Constants.COMMA //电量
                                         + currentBatt + Constants.COMMA //电流
                                         + temperature + Constants.COMMA //温度
-//                                    + voltage + Constants.COMMA
+//                                      + voltage + Constants.COMMA
                                         + fps + Constants.LINE_END); //fps
                     }
 
