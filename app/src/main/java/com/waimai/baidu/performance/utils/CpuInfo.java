@@ -81,6 +81,7 @@ public class CpuInfo {
             StringBuffer stringBuffer = new StringBuffer();
             stringBuffer.setLength(0);
             while ((line = processCpuInfo.readLine()) != null) {
+                Log.i("proc/pid/stat", "readCpuStat: "+line);
                 stringBuffer.append(line + "\n");
             }
             String[] tok = stringBuffer.toString().split(" ");
@@ -103,6 +104,7 @@ public class CpuInfo {
             RandomAccessFile cpuInfo = new RandomAccessFile(CPU_STAT, "r");
             String line = "";
             while ((null != (line = cpuInfo.readLine())) && line.startsWith("cpu")) {
+                Log.i("proc/stat", "readTotalCpuStat: "+line);
                 String[] toks = line.split("\\s+");
                 idleCpu.add(Long.parseLong(toks[4]));
                 totalCpu.add(Long.parseLong(toks[1]) + Long.parseLong(toks[2]) + Long.parseLong(toks[3]) + Long.parseLong(toks[4])

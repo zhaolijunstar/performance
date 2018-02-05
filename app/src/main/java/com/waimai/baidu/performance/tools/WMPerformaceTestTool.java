@@ -40,15 +40,18 @@ public class WMPerformaceTestTool {
 //        if (Build.VERSION.SDK_INT < 24) {
             monitorService = new Intent();
             monitorService.setClass(mContext, WMPerformanceTestService.class);
+            //得到所有安装的应用的信息
             List<Programe> allProgrames = processInfo.getAllPackages(mContext);
             String packageName = null;
             String processName = null;
+            //匹配我们app的包名
             for (Programe pm : allProgrames) {
                 if (pm.getPackageName().contains(FilterPKName)) {
                     packageName = pm.getPackageName();
                     processName = pm.getProcessName();
                 }
             }
+            //获取启动我们app的intent
             Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(packageName);
             String startActivity = "";
             Log.d(LOG_TAG, packageName);
@@ -60,6 +63,7 @@ public class WMPerformaceTestTool {
             }
             try {
                 startActivity = intent.resolveActivity(mContext.getPackageManager()).getShortClassName();
+                //启动我们的app
                 mContext.startActivity(intent);
             } catch (Exception e) {
                 Toast.makeText(mContext, mContext.getString(R.string.can_not_start_app_toast), Toast.LENGTH_LONG).show();

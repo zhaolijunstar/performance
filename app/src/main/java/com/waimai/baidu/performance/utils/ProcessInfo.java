@@ -27,7 +27,7 @@ public class ProcessInfo {
 	private static final String LOG_TAG = "Emmagee-"
 			+ ProcessInfo.class.getSimpleName();
 
-	private static final String PACKAGE_NAME = "com.netease.qa.emmagee";
+	private static final String PACKAGE_NAME = "com.waimai.baidu.performance";
 	private static final int ANDROID_M = 22;
 
 	/**
@@ -45,14 +45,18 @@ public class ProcessInfo {
 
 		ActivityManager am = (ActivityManager) context
 				.getSystemService(Context.ACTIVITY_SERVICE);
+		//得到所有运行时的进程
 		List<RunningAppProcessInfo> run = am.getRunningAppProcesses();
+		//得到所有应用信息
 		for (ApplicationInfo appinfo : getPackagesInfo(context)) {
 			Programe programe = new Programe();
+
 			if (((appinfo.flags & ApplicationInfo.FLAG_SYSTEM) > 0)
 					|| ((appinfo.processName != null) && (appinfo.processName
 							.equals(PACKAGE_NAME)))) {
 				continue;
 			}
+			//匹配进程包名和应用包名
 			for (RunningAppProcessInfo runningProcess : run) {
 				if ((runningProcess.processName != null)
 						&& runningProcess.processName
@@ -86,6 +90,7 @@ public class ProcessInfo {
 		if (Build.VERSION.SDK_INT < ANDROID_M) {
 			List<RunningAppProcessInfo> run = am.getRunningAppProcesses();
 			for (RunningAppProcessInfo runningProcess : run) {
+				//当进程名和包名相同时，返回这个进程的pid
 				if ((runningProcess.processName != null)
 						&& runningProcess.processName.equals(packageName)) {
 					return runningProcess.pid;

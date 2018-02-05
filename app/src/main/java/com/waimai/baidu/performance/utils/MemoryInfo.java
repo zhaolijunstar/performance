@@ -35,6 +35,7 @@ public class MemoryInfo {
 			FileReader fr = new FileReader(memInfoPath);
 			BufferedReader localBufferedReader = new BufferedReader(fr, 8192);
 			while ((readTemp = localBufferedReader.readLine()) != null) {
+				Log.i("/proc/meminfo", "getTotalMemory: "+readTemp);
 				if (readTemp.contains("MemTotal")) {
 					String[] total = readTemp.split(":");
 					memTotal = total[1].trim();
@@ -79,7 +80,8 @@ public class MemoryInfo {
 		int[] myMempid = new int[] { pid };
 		Debug.MemoryInfo[] memoryInfo = am.getProcessMemoryInfo(myMempid);
 		memoryInfo[0].getTotalSharedDirty();
-		int memSize = memoryInfo[0].getTotalPss();
+//		int memSize = memoryInfo[0].getTotalPss();
+		int memSize = memoryInfo[0].getTotalPrivateDirty();
 		return memSize;
 	}
 

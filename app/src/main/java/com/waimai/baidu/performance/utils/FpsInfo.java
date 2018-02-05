@@ -1,5 +1,7 @@
 package com.waimai.baidu.performance.utils;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -36,11 +38,11 @@ public class FpsInfo {
 	}
 
 	/**
-	 * get frame value
+	 * get frame value（其值为累计值）
 	 * 
 	 * @return frame value
 	 */
-	public static final int getFrameNum() {
+	 public static final int getFrameNum() {
 		try {
 			if (process == null) {
 				process = Runtime.getRuntime().exec("su");
@@ -51,11 +53,13 @@ public class FpsInfo {
 			os.writeBytes("service call SurfaceFlinger 1013" + "\n");
 			os.flush();
 			String str1 = ir.readLine();
+//			Log.i("getFrameNum", "getFrameNum: "+str1);
 			if (str1 != null) {
 				int start = str1.indexOf("(");
 				int end = str1.indexOf("  ");
 				if ((start != -1) & (end > start)) {
 					String str2 = str1.substring(start + 1, end);
+					Log.i("getFrameNum", "getFrameNum: "+Integer.parseInt(str2, 16));
 					return Integer.parseInt(str2, 16);
 				}
 			}

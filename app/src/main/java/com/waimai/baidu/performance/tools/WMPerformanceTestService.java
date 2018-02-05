@@ -82,7 +82,6 @@ public class WMPerformanceTestService extends Service {
     private int delaytime;
     private DecimalFormat fomart;
     private MemoryInfo memoryInfo;
-    private WifiManager wifiManager;
     private Handler handler = new Handler();
     private CpuInfo cpuInfo;
     private boolean isFloating;
@@ -237,7 +236,7 @@ public class WMPerformanceTestService extends Service {
     private void readSettingInfo() {
         SharedPreferences preferences = Settings
                 .getDefaultSharedPreferences(getApplicationContext());
-        int interval = preferences.getInt(Settings.KEY_INTERVAL, 5);
+        int interval = preferences.getInt(Settings.KEY_INTERVAL, 3);
         delaytime = interval * 1000;
         isFloating = preferences.getBoolean(Settings.KEY_ISFLOAT, true);
         sender = preferences.getString(Settings.KEY_SENDER, BLANK_STRING);

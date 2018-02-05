@@ -74,13 +74,10 @@ public class TestMainActivity extends Activity {
                         preferences.edit().putInt(Settings.KEY_INTERVAL, interval).commit();
                     }
                 });
-
-
-                int interval = preferences.getInt(Settings.KEY_INTERVAL, 5);
-
+                
+                int interval = preferences.getInt(Settings.KEY_INTERVAL, 3);
+                tvTime.setText(interval+"");
                 timeBar.setProgress(interval);
-
-
 
                 AlertDialog collectFrequencyDialog = new AlertDialog.Builder(TestMainActivity.this)
                         .setTitle("调节采集数据频率").setView(paramaterDialog)//在这里把写好的这个listview的布局加载dialog中
