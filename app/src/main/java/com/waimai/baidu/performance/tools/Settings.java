@@ -14,7 +14,6 @@ import java.io.File;
  * 
  */
 public final class Settings {
-
 	public static final String KEY_SENDER = "sender";
 	public static final String KEY_PASSWORD = "password";
 	public static final String KEY_RECIPIENTS = "recipients";
