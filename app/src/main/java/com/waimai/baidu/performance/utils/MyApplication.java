@@ -4,8 +4,10 @@ package com.waimai.baidu.performance.utils;
 import java.io.File;
 
 import android.app.Application;
+import android.content.Context;
 import android.view.WindowManager;
 
+import com.github.moduth.blockcanary.BlockCanary;
 import com.waimai.baidu.performance.tools.Settings;
 
 /**
@@ -13,6 +15,8 @@ import com.waimai.baidu.performance.tools.Settings;
  *
  */
 public class MyApplication extends Application {
+
+	private static Context sContext;
 
 	private WindowManager.LayoutParams wmParams = new WindowManager.LayoutParams();
 
@@ -24,6 +28,9 @@ public class MyApplication extends Application {
 	public void onCreate() {
 		initAppConfig();
 		super.onCreate();
+		sContext = this;
+		BlockCanary.install(this, new AppContext()).start();
+
 	}
 	
 	private void initAppConfig() {
@@ -32,5 +39,10 @@ public class MyApplication extends Application {
 			dir.mkdirs();
 		}
 	}
-	
+
+	public static Context getAppContext() {
+		return sContext;
+	}
+
+
 }

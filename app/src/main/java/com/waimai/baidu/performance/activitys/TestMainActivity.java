@@ -16,10 +16,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.moduth.blockcanary.BlockCanary;
 import com.waimai.baidu.performance.tools.Settings;
 import com.waimai.baidu.performance.tools.WMPerformanceTestService;
 import com.waimai.baidu.performance.tools.WMPerformaceTestTool;
+import com.waimai.baidu.performance.utils.AppContext;
 import com.waimai.baidu.wmperformancetool.R;
 
 /**
@@ -35,6 +38,8 @@ public class TestMainActivity extends Activity {
     private Button dataCompare;
     private SharedPreferences preferences;
     private TextView tvTime;
+    private Button baseDataTestEntry;
+    private Button smothingTestEntry;
     SeekBar timeBar;
 
 
@@ -47,7 +52,6 @@ public class TestMainActivity extends Activity {
         collectFrequency = findViewById(R.id.collect_frequency);
         btnTest = findViewById(R.id.start_test);
         dataCompare = findViewById(R.id.data_compare_button);
-
         preferences = Settings.getDefaultSharedPreferences(getApplicationContext());
 
         collectFrequency.setOnClickListener(new OnClickListener() {
@@ -96,8 +100,40 @@ public class TestMainActivity extends Activity {
         btnTest.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                WMPerformaceTestTool tool = new WMPerformaceTestTool(getBaseContext());
-                tool.startWMPerformanceTool();
+
+                View paramaterDialog = View.inflate(TestMainActivity.this, R.layout.select_test_layout, null);
+                baseDataTestEntry = (Button) paramaterDialog.findViewById(R.id.base_data_entry);
+                smothingTestEntry = (Button) paramaterDialog.findViewById(R.id.smothing_entry);
+
+                final AlertDialog selectTestDialog = new AlertDialog.Builder(TestMainActivity.this)
+                        .setTitle("调节采集数据频率").setView(paramaterDialog)//在这里把写好的这个listview的布局加载dialog中
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).create();
+                selectTestDialog.show();
+
+                baseDataTestEntry.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        WMPerformaceTestTool tool = new WMPerformaceTestTool(getBaseContext());
+                        tool.startWMPerformanceTool();
+                        selectTestDialog.dismiss();
+                    }
+                });
+
+                smothingTestEntry.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        BlockCanary.install(TestMainActivity.this, new AppContext()).start();
+                        selectTestDialog.dismiss();
+                        Toast.makeText(TestMainActivity.this,"已打开流畅性测试开关",Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
         });
 
